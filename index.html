@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 <meta charset="UTF-8">
 <title>Galt Islamic Centre</title>
-
 <style>
 /* ===== FULL SCREEN & VERTICAL ORIENTATION ===== */
 html, body {
@@ -20,9 +18,9 @@ html, body {
 
 /* Rotate content to fit vertical 9:16 TV */
 .screen-wrapper {
-    width: 100vh;           /* full height becomes width */
-    height: 100vw;           /* full width becomes height */
-    transform: rotate(90deg); /* rotate content */
+    width: 100vh;               /* full height becomes width */
+    height: 100vw;              /* full width becomes height */
+    transform: rotate(90deg);   /* rotate content */
     transform-origin: top left;
     position: absolute;
     top: 0;
@@ -31,14 +29,13 @@ html, body {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    background: #ffffff;
     box-sizing: border-box;
     padding-top: 20px;
 }
 
 /* LOGO */
 .logo img {
-    width: 180px; /* scale logo for vertical layout */
+    width: 180px;
     margin-bottom: 10px;
 }
 
@@ -100,7 +97,6 @@ td {
     color: #2a79c5;
 }
 </style>
-
 </head>
 
 <body>
@@ -140,7 +136,7 @@ td {
 </div>
 
 <script>
-/* ===== PRAYER DATA (MARCH SAMPLE) ===== */
+/* ===== PRAYER DATA ===== */
 const salah = {
 1:{fajrA:"5:38 AM",fajrJ:"6:00 AM",zuhrA:"12:33 PM",zuhrJ:"1:45 PM",asrA:"4:25 PM",asrJ:"5:15 PM",maghribA:"6:13 PM",ishaA:"7:29 PM",ishaJ:"7:50 PM"},
 2:{fajrA:"5:37 AM",fajrJ:"6:00 AM",zuhrA:"12:33 PM",zuhrJ:"1:45 PM",asrA:"4:26 PM",asrJ:"5:15 PM",maghribA:"6:14 PM",ishaA:"7:30 PM",ishaJ:"7:50 PM"},
@@ -151,45 +147,45 @@ const salah = {
 
 /* ===== CLOCK ===== */
 function updateClock(){
-let now = new Date()
-document.getElementById("clock").innerHTML = now.toLocaleTimeString()
+let now = new Date();
+document.getElementById("clock").innerHTML = now.toLocaleTimeString();
 document.getElementById("date").innerHTML = now.toLocaleDateString(undefined,{
     weekday:"long",
     month:"long",
     day:"numeric"
-})
+});
 }
-setInterval(updateClock,1000)
-updateClock()
+setInterval(updateClock,1000);
+updateClock();
 
 /* ===== ADD 2 MINUTES FUNCTION ===== */
 function add2Minutes(time){
-let [hour,min] = time.split(":")
-let minute = parseInt(min)
-minute += 2
+let [hour,min] = time.split(":");
+let minute = parseInt(min);
+minute += 2;
 if(minute >= 60){
-    minute -= 60
-    hour = parseInt(hour) + 1
+    minute -= 60;
+    hour = parseInt(hour) + 1;
 }
-return hour + ":" + minute.toString().padStart(2,"0")
+return hour + ":" + minute.toString().padStart(2,"0");
 }
 
 /* ===== LOAD TODAY ===== */
 function loadToday(){
-let day = new Date().getDate()
-let t = salah[day]
-if(!t) return
-let maghribIqama = add2Minutes(t.maghribA.replace(" PM",""))
+let day = new Date().getDate();
+let t = salah[day];
+if(!t) return;
+let maghribIqama = add2Minutes(t.maghribA.replace(" PM",""));
 let html = `
 <tr><td class="prayer">FAJR</td><td>${t.fajrA}</td><td>${t.fajrJ}</td></tr>
 <tr><td class="prayer">ZUHR</td><td>${t.zuhrA}</td><td>${t.zuhrJ}</td></tr>
 <tr><td class="prayer">ASR</td><td>${t.asrA}</td><td>${t.asrJ}</td></tr>
 <tr><td class="prayer">MAGHRIB</td><td>${t.maghribA}</td><td>${maghribIqama}</td></tr>
 <tr><td class="prayer">ISHA</td><td>${t.ishaA}</td><td>${t.ishaJ}</td></tr>
-`
-document.getElementById("salahTable").innerHTML += html
+`;
+document.getElementById("salahTable").innerHTML += html;
 }
-loadToday()
+loadToday();
 </script>
 
 </body>
