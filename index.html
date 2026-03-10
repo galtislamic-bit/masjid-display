@@ -3,189 +3,334 @@
 <head>
 <meta charset="UTF-8">
 <title>Galt Islamic Centre</title>
+
 <style>
-/* ===== FULL SCREEN & VERTICAL ORIENTATION ===== */
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-    background: #ffffff;
-    font-family: "Segoe UI", sans-serif;
-    color: #0a2a4a;
+
+/* ===== SCREEN ===== */
+
+html,body{
+margin:0;
+padding:0;
+background:#eef3f9;
+font-family:"Segoe UI",Arial,sans-serif;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
 }
 
-/* Rotate content to fit vertical 9:16 TV */
-.screen-wrapper {
-    width: 100vh;               /* full height becomes width */
-    height: 100vw;              /* full width becomes height */
-    transform: rotate(90deg);   /* rotate content */
-    transform-origin: top left;
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    box-sizing: border-box;
-    padding-top: 20px;
+/* ===== 9 x 16 MASJID DISPLAY ===== */
+
+.container{
+width:9in;
+height:16in;
+background:white;
+box-shadow:0 0 30px rgba(0,0,0,0.15);
+display:flex;
+flex-direction:column;
+align-items:center;
+padding:30px;
+box-sizing:border-box;
 }
 
-/* LOGO */
-.logo img {
-    width: 180px;
-    margin-bottom: 10px;
+/* ===== LOGO ===== */
+
+.logo img{
+width:170px;
+margin-bottom:10px;
 }
 
-/* MASJID NAME */
-.masjid {
-    font-size: 40px;
-    font-weight: 600;
-    color: #2a79c5;
-    margin-bottom: 15px;
+/* ===== MASJID NAME ===== */
+
+.masjid{
+font-size:46px;
+font-weight:700;
+color:#2a79c5;
+letter-spacing:2px;
+margin-bottom:10px;
+text-align:center;
 }
 
-/* CLOCK */
-.clock {
-    font-size: 55px;
-    margin-top: 0;
-}
-.date {
-    font-size: 24px;
-    color: #666;
-    margin-bottom: 20px;
+/* ===== CLOCK ===== */
+
+.clock{
+font-size:72px;
+font-weight:600;
+margin-top:10px;
 }
 
-/* TABLE */
-table {
-    width: 90%;
-    margin: auto;
-    border-collapse: collapse;
-    font-size: 32px;
-}
-th {
-    color: #2a79c5;
-    padding: 10px;
-    border-bottom: 3px solid #2a79c5;
-}
-td {
-    padding: 12px;
-    border-bottom: 1px solid #ddd;
-}
-.prayer {
-    text-align: left;
-    font-weight: 600;
+.date{
+font-size:26px;
+color:#666;
+margin-bottom:25px;
 }
 
-/* NEXT SALAH */
-.nextTitle {
-    margin-top: 20px;
-    font-size: 32px;
-    color: #2a79c5;
-}
-.countdown {
-    font-size: 45px;
-    margin-top: 10px;
+/* ===== TABLE ===== */
+
+table{
+width:100%;
+border-collapse:collapse;
+font-size:38px;
 }
 
-/* JUMUAH */
-.jumah {
-    margin-top: 15px;
-    font-size: 28px;
-    color: #2a79c5;
+th{
+color:#2a79c5;
+padding:12px;
+border-bottom:4px solid #2a79c5;
 }
+
+td{
+padding:16px;
+border-bottom:1px solid #ddd;
+}
+
+.prayer{
+font-weight:600;
+text-align:left;
+}
+
+/* ===== CURRENT PRAYER HIGHLIGHT ===== */
+
+.active{
+background:#2a79c5;
+color:white;
+font-weight:700;
+}
+
+/* ===== NEXT SALAH ===== */
+
+.nextBox{
+margin-top:25px;
+text-align:center;
+}
+
+.nextTitle{
+font-size:32px;
+color:#2a79c5;
+}
+
+.nextName{
+font-size:48px;
+font-weight:700;
+margin-top:5px;
+}
+
+.countdown{
+font-size:44px;
+margin-top:10px;
+}
+
+/* ===== JUMUAH ===== */
+
+.jumah{
+margin-top:auto;
+font-size:28px;
+color:#2a79c5;
+font-weight:600;
+}
+
 </style>
 </head>
 
 <body>
-<div class="screen-wrapper">
 
-    <div class="logo">
-        <img src="galt-logo.png" alt="Galt Logo">
-    </div>
+<div class="container">
 
-    <div class="masjid">
-        GALT ISLAMIC CENTRE
-    </div>
+<div class="logo">
+<img src="galt-logo.png">
+</div>
 
-    <div class="clock" id="clock"></div>
-    <div class="date" id="date"></div>
+<div class="masjid">
+GALT ISLAMIC CENTRE
+</div>
 
-    <table id="salahTable">
-        <tr>
-            <th>Prayer</th>
-            <th>Adhan</th>
-            <th>Iqamah</th>
-        </tr>
-    </table>
+<div class="clock" id="clock"></div>
+<div class="date" id="date"></div>
 
-    <div class="nextTitle">
-        Next Salah
-    </div>
+<table id="salahTable">
 
-    <div class="countdown" id="countdown">
-        --
-    </div>
+<tr>
+<th>Prayer</th>
+<th>Adhan</th>
+<th>Iqamah</th>
+</tr>
 
-    <div class="jumah">
-        Jumuah • 1:45 PM • 2:30 PM
-    </div>
+</table>
+
+<div class="nextBox">
+
+<div class="nextTitle">
+Next Salah
+</div>
+
+<div class="nextName" id="nextName">
+--
+</div>
+
+<div class="countdown" id="countdown">
+--
+</div>
+
+</div>
+
+<div class="jumah">
+Jumuah • 1:45 PM • 2:30 PM
+</div>
 
 </div>
 
 <script>
+
 /* ===== PRAYER DATA ===== */
+
 const salah = {
+
 1:{fajrA:"5:38 AM",fajrJ:"6:00 AM",zuhrA:"12:33 PM",zuhrJ:"1:45 PM",asrA:"4:25 PM",asrJ:"5:15 PM",maghribA:"6:13 PM",ishaA:"7:29 PM",ishaJ:"7:50 PM"},
 2:{fajrA:"5:37 AM",fajrJ:"6:00 AM",zuhrA:"12:33 PM",zuhrJ:"1:45 PM",asrA:"4:26 PM",asrJ:"5:15 PM",maghribA:"6:14 PM",ishaA:"7:30 PM",ishaJ:"7:50 PM"},
 3:{fajrA:"5:35 AM",fajrJ:"6:00 AM",zuhrA:"12:33 PM",zuhrJ:"1:45 PM",asrA:"4:27 PM",asrJ:"5:15 PM",maghribA:"6:15 PM",ishaA:"7:32 PM",ishaJ:"7:50 PM"},
 4:{fajrA:"5:33 AM",fajrJ:"6:00 AM",zuhrA:"12:33 PM",zuhrJ:"1:45 PM",asrA:"4:28 PM",asrJ:"5:15 PM",maghribA:"6:17 PM",ishaA:"7:33 PM",ishaJ:"7:50 PM"},
 5:{fajrA:"5:32 AM",fajrJ:"5:50 AM",zuhrA:"12:33 PM",zuhrJ:"1:45 PM",asrA:"4:29 PM",asrJ:"5:15 PM",maghribA:"6:18 PM",ishaA:"7:34 PM",ishaJ:"7:50 PM"}
+
 }
 
 /* ===== CLOCK ===== */
+
 function updateClock(){
-let now = new Date();
-document.getElementById("clock").innerHTML = now.toLocaleTimeString();
-document.getElementById("date").innerHTML = now.toLocaleDateString(undefined,{
-    weekday:"long",
-    month:"long",
-    day:"numeric"
-});
-}
-setInterval(updateClock,1000);
-updateClock();
 
-/* ===== ADD 2 MINUTES FUNCTION ===== */
+let now = new Date()
+
+document.getElementById("clock").innerHTML =
+now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'})
+
+document.getElementById("date").innerHTML =
+now.toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric"})
+
+}
+
+setInterval(updateClock,1000)
+updateClock()
+
+/* ===== ADD 2 MINUTES ===== */
+
 function add2Minutes(time){
-let [hour,min] = time.split(":");
-let minute = parseInt(min);
-minute += 2;
+
+let parts = time.split(":")
+let hour = parseInt(parts[0])
+let minute = parseInt(parts[1])
+
+minute += 2
+
 if(minute >= 60){
-    minute -= 60;
-    hour = parseInt(hour) + 1;
-}
-return hour + ":" + minute.toString().padStart(2,"0");
+minute -= 60
+hour += 1
 }
 
-/* ===== LOAD TODAY ===== */
-function loadToday(){
-let day = new Date().getDate();
-let t = salah[day];
-if(!t) return;
-let maghribIqama = add2Minutes(t.maghribA.replace(" PM",""));
-let html = `
-<tr><td class="prayer">FAJR</td><td>${t.fajrA}</td><td>${t.fajrJ}</td></tr>
-<tr><td class="prayer">ZUHR</td><td>${t.zuhrA}</td><td>${t.zuhrJ}</td></tr>
-<tr><td class="prayer">ASR</td><td>${t.asrA}</td><td>${t.asrJ}</td></tr>
-<tr><td class="prayer">MAGHRIB</td><td>${t.maghribA}</td><td>${maghribIqama}</td></tr>
-<tr><td class="prayer">ISHA</td><td>${t.ishaA}</td><td>${t.ishaJ}</td></tr>
-`;
-document.getElementById("salahTable").innerHTML += html;
+return hour + ":" + minute.toString().padStart(2,"0")
+
 }
-loadToday();
+
+/* ===== LOAD PRAYERS ===== */
+
+let prayerTimes = []
+
+function loadToday(){
+
+let day = new Date().getDate()
+let t = salah[day]
+
+if(!t) return
+
+let maghribIqama = add2Minutes(t.maghribA.replace(" PM",""))
+
+prayerTimes = [
+
+{name:"Fajr",adhan:t.fajrA,iqamah:t.fajrJ},
+{name:"Zuhr",adhan:t.zuhrA,iqamah:t.zuhrJ},
+{name:"Asr",adhan:t.asrA,iqamah:t.asrJ},
+{name:"Maghrib",adhan:t.maghribA,iqamah:maghribIqama+" PM"},
+{name:"Isha",adhan:t.ishaA,iqamah:t.ishaJ}
+
+]
+
+let table=""
+
+prayerTimes.forEach(p=>{
+table += `<tr id="${p.name}">
+<td class="prayer">${p.name.toUpperCase()}</td>
+<td>${p.adhan}</td>
+<td>${p.iqamah}</td>
+</tr>`
+})
+
+document.getElementById("salahTable").innerHTML += table
+
+}
+
+loadToday()
+
+/* ===== TIME CONVERT ===== */
+
+function toDate(time){
+
+let d = new Date()
+
+let parts = time.split(" ")
+let hm = parts[0].split(":")
+
+let h = parseInt(hm[0])
+let m = parseInt(hm[1])
+
+if(parts[1]=="PM" && h!=12) h+=12
+if(parts[1]=="AM" && h==12) h=0
+
+d.setHours(h)
+d.setMinutes(m)
+d.setSeconds(0)
+
+return d
+
+}
+
+/* ===== NEXT SALAH ===== */
+
+function updateNext(){
+
+let now = new Date()
+
+let next = null
+
+for(let p of prayerTimes){
+
+let iq = toDate(p.iqamah)
+
+if(iq > now){
+next = {name:p.name,time:iq}
+break
+}
+
+}
+
+if(!next) return
+
+document.getElementById("nextName").innerHTML = next.name
+
+let diff = next.time - now
+
+let mins = Math.floor(diff/60000)
+let secs = Math.floor((diff%60000)/1000)
+
+document.getElementById("countdown").innerHTML =
+mins+"m "+secs+"s"
+
+document.querySelectorAll("tr").forEach(r=>r.classList.remove("active"))
+
+let activeRow = document.getElementById(next.name)
+if(activeRow) activeRow.classList.add("active")
+
+}
+
+setInterval(updateNext,1000)
+
 </script>
 
 </body>
